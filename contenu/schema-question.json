@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Question",
+  "type": "object",
+  "required": ["id","niveau","matiere","chapitre","enonce","choix","bonne_reponse","explication","difficulte"],
+  "properties": {
+    "id": { "type": "string", "minLength": 1 },
+    "niveau": { "type": "string", "enum": ["7e","8e","9e","NS1","NS2","NS3","NS4"] },
+    "matiere": { "type": "string", "minLength": 1 },
+    "chapitre": { "type": "string", "minLength": 1 },
+    "enonce": { "type": "string", "minLength": 1 },
+    "choix": { "type": "array", "items": { "type": "string" }, "minItems": 2, "maxItems": 4 },
+    "bonne_reponse": { "type": "string", "enum": ["a","b","c","d"] },
+    "explication": { "type": "string", "minLength": 1 },
+    "difficulte": { "type": "string", "enum": ["Facile","Moyen","Difficile"] }
+  },
+  "additionalProperties": false
+}

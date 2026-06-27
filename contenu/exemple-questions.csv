@@ -1,0 +1,3 @@
+id,niveau,matiere,chapitre,enonce,choix_a,choix_b,choix_c,choix_d,bonne_reponse,explication,difficulte
+GEO-7E-001,7e,Géographie,Le relief d'Haïti,Quel est le point culminant d'Haïti ?,Pic la Selle,Pic Macaya,Morne des Commissaires,Chaîne des Matheux,a,"Le Pic la Selle, à environ 2 680 m, est le sommet le plus élevé d'Haïti. Il se situe dans le massif de la Selle, au sud-est du pays.",Moyen
+GEO-7E-002,7e,Géographie,Le relief d'Haïti,Quelle est la capitale d'Haïti ?,Cap-Haïtien,Port-au-Prince,Jacmel,Les Cayes,b,"La capitale d'Haïti est Port-au-Prince. C'est la plus grande ville du pays et le siège du gouvernement, située au fond du golfe de la Gonâve.",Facile

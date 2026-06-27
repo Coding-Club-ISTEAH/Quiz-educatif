@@ -1,0 +1,13 @@
+[
+  {
+    "id": "GEO-7E-001",
+    "niveau": "7e",
+    "matiere": "Géographie",
+    "chapitre": "Le relief d'Haïti",
+    "enonce": "Quel est le point culminant d'Haïti ?",
+    "choix": ["Pic la Selle", "Pic Macaya", "Morne des Commissaires", "Chaîne des Matheux"],
+    "bonne_reponse": "a",
+    "explication": "Le Pic la Selle, à environ 2 680 m, est le sommet le plus élevé d'Haïti. Il se situe dans le massif de la Selle, au sud-est du pays.",
+    "difficulte": "Moyen"
+  }
+]
