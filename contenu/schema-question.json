@@ -4,12 +4,16 @@
   "type": "object",
   "required": ["id","niveau","matiere","chapitre","enonce","choix","bonne_reponse","explication","difficulte"],
   "properties": {
-    "id": { "type": "string", "minLength": 1 },
+    "id": { "type": "string", "pattern": "^[A-Z]+-(7e|8e|9e|NS1|NS2|NS3|NS4)-[0-9]{3,}$" },
     "niveau": { "type": "string", "enum": ["7e","8e","9e","NS1","NS2","NS3","NS4"] },
-    "matiere": { "type": "string", "minLength": 1 },
+    "matiere": { "type": "string", "enum": [
+      "Mathématiques","Français","Sciences expérimentales","Sciences sociales",
+      "Histoire","Géographie","Littérature","Espagnol","Anglais","Chimie",
+      "Physique","Connaissances générales","EPS","EEA","ETAP","EC"
+    ]},
     "chapitre": { "type": "string", "minLength": 1 },
     "enonce": { "type": "string", "minLength": 1 },
-    "choix": { "type": "array", "items": { "type": "string" }, "minItems": 2, "maxItems": 4 },
+    "choix": { "type": "array", "items": { "type": "string" }, "minItems": 4, "maxItems": 4 },
     "bonne_reponse": { "type": "string", "enum": ["a","b","c","d"] },
     "explication": { "type": "string", "minLength": 1 },
     "difficulte": { "type": "string", "enum": ["Facile","Moyen","Difficile"] }
