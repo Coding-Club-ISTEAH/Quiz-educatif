@@ -1,0 +1,51 @@
+name: Déployer la version web de test
+
+on:
+  push:
+    branches: [main, master]
+    paths:
+      - 'mobile/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build-and-deploy:
+    name: Construire et publier sur GitHub Pages
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Récupérer le code
+        uses: actions/checkout@v4
+
+      - name: Installer Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.32.0"
+          channel: stable
+          cache: true
+
+      - name: Télécharger les dépendances
+        working-directory: mobile
+        run: flutter pub get
+
+      - name: Construire la version web
+        working-directory: mobile
+        run: flutter build web --base-href /Quiz-educatif/
+
+      - name: Préparer pour GitHub Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: mobile/build/web
+
+      - name: Déployer sur GitHub Pages
+        uses: actions/deploy-pages@v4
+
+      - name: Résumé
+        run: |
+          echo "## Version web déployée ✅" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Lien : https://coding-club-isteah.github.io/Quiz-educatif/" >> $GITHUB_STEP_SUMMARY
