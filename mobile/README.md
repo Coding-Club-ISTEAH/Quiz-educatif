@@ -1,8 +1,16 @@
-# Application mobile (Flutter) — Phase 2
+# quiz_educatif
 
-Application Flutter pour Android et iOS, fonctionnant hors ligne avec
-synchronisation automatique dès qu'une connexion est disponible. C'est l'usage
-quotidien visé pour les élèves.
+A new Flutter project.
 
-Cette phase démarre une fois les bases acquises sur le web. Le contournement de la
-compilation iOS sans Mac (services cloud) est anticipé dès le départ.
+## Getting Started
+
+This project is a starting point for a Flutter application.
+
+A few resources to get you started if this is your first Flutter project:
+
+- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
+- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+
+For help getting started with Flutter development, view the
+[online documentation](https://docs.flutter.dev/), which offers tutorials,
+samples, guidance on mobile development, and a full API reference.
