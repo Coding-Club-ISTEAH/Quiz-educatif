@@ -15193,6 +15193,111 @@ EPS:
         ),
     ]);
   }
+
+  // ── Admin helpers ────────────────────────────────────────────────────────
+
+  Future<List<Map<String, dynamic>>> adminGetMatieres() async {
+    final db = await database;
+    return db.query('matieres', orderBy: 'nom');
+  }
+
+  Future<List<Map<String, dynamic>>> adminGetChapitres(int matiereId) async {
+    final db = await database;
+    return db.query('chapitres',
+        where: 'matiere_id = ?', whereArgs: [matiereId], orderBy: 'id');
+  }
+
+  Future<List<Map<String, dynamic>>> adminGetQuestions(int chapitreId) async {
+    final db = await database;
+    return db.query('questions',
+        where: 'chapitre_id = ?', whereArgs: [chapitreId], orderBy: 'id');
+  }
+
+  Future<void> adminAddQuestion({
+    required int chapitreId,
+    required String enonce,
+    required List<String> choix,
+    required String bonneReponse,
+    required String explication,
+    required String niveauComplexite,
+  }) async {
+    final db = await database;
+    await db.insert('questions', {
+      'chapitre_id': chapitreId,
+      'enonce': enonce,
+      'choix': jsonEncode(choix),
+      'bonne_reponse': bonneReponse,
+      'explication': explication,
+      'niveau_complexite': niveauComplexite,
+    });
+  }
+
+  Future<void> adminUpdateQuestion({
+    required int id,
+    required String enonce,
+    required List<String> choix,
+    required String bonneReponse,
+    required String explication,
+    required String niveauComplexite,
+  }) async {
+    final db = await database;
+    await db.update(
+      'questions',
+      {
+        'enonce': enonce,
+        'choix': jsonEncode(choix),
+        'bonne_reponse': bonneReponse,
+        'explication': explication,
+        'niveau_complexite': niveauComplexite,
+      },
+      where: 'id = ?',
+      whereArgs: [id],
+    );
+  }
+
+  Future<void> adminDeleteQuestion(int id) async {
+    final db = await database;
+    await db.delete('questions', where: 'id = ?', whereArgs: [id]);
+    await db.delete('statistiques_questions',
+        where: 'question_id = ?', whereArgs: [id]);
+  }
+
+  Future<void> adminResetTable(String table) async {
+    final db = await database;
+    await db.delete(table);
+  }
+
+  Future<Map<String, dynamic>?> adminGetUserPrefs() async {
+    final db = await database;
+    final rows = await db.query('user_preferences', where: 'id = 1');
+    return rows.isEmpty ? null : rows.first;
+  }
+
+  Future<List<Map<String, dynamic>>> adminGetQuestionsFailles(
+      {int limit = 10}) async {
+    final db = await database;
+    return db.rawQuery('''
+      SELECT q.id, q.enonce, sq.nb_affichee, sq.nb_correcte
+      FROM statistiques_questions sq
+      JOIN questions q ON q.id = sq.question_id
+      WHERE sq.nb_affichee > 0
+      ORDER BY (CAST(sq.nb_correcte AS REAL) / sq.nb_affichee) ASC
+      LIMIT ?
+    ''', [limit]);
+  }
+
+  Future<List<Map<String, dynamic>>> adminExportQuestions() async {
+    final db = await database;
+    return db.rawQuery('''
+      SELECT q.id, q.chapitre_id, q.enonce, q.choix, q.bonne_reponse,
+             q.explication, q.niveau_complexite,
+             c.titre as chapitre_titre, m.nom as matiere_nom
+      FROM questions q
+      JOIN chapitres c ON c.id = q.chapitre_id
+      JOIN matieres m ON m.id = c.matiere_id
+      ORDER BY m.nom, c.titre, q.id
+    ''');
+  }
 }
 
 class _ChapitreSeed {
