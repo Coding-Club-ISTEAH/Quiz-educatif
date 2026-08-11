@@ -38,7 +38,7 @@ class ParametrePartie {
     tempsParQuestion: 0,
     feedbackImmediat: false,
     dureeTotale: 60,
-    multiplicateurScore: 2.0,
+    multiplicateurScore: 1.67,
   );
 
   static const modes = [rush, revision, bombardement];

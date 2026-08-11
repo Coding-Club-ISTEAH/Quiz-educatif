@@ -29,7 +29,7 @@ class DatabaseHelper {
     final path = kIsWeb ? 'quiz_educatif.db' : join(await getDatabasesPath(), 'quiz_educatif.db');
     return openDatabase(
       path,
-      version: 10,
+      version: 11,
       onCreate: _onCreate,
       onUpgrade: _onUpgrade,
     );
@@ -90,6 +90,15 @@ class DatabaseHelper {
     }
     if (oldVersion < 10) {
       await _reseedAll(db);
+    }
+    if (oldVersion < 11) {
+      try {
+        await db.execute(
+          "ALTER TABLE statistiques_questions ADD COLUMN historique TEXT NOT NULL DEFAULT '[]'",
+        );
+      } catch (_) {}
+      // Réinitialise les stats pour que historique reste cohérent avec les compteurs.
+      await db.delete('statistiques_questions');
     }
   }
 
@@ -172,7 +181,8 @@ class DatabaseHelper {
       CREATE TABLE IF NOT EXISTS statistiques_questions (
         question_id INTEGER PRIMARY KEY,
         nb_affichee INTEGER NOT NULL DEFAULT 0,
-        nb_correcte INTEGER NOT NULL DEFAULT 0
+        nb_correcte INTEGER NOT NULL DEFAULT 0,
+        historique TEXT NOT NULL DEFAULT '[]'
       )
     ''');
     await db.execute('''
@@ -340,29 +350,52 @@ class DatabaseHelper {
     await db.delete('quiz_en_cours', where: 'id = 1');
   }
 
+  /// Enregistre les statistiques de chaque question avec une fenêtre glissante
+  /// des 10 dernières tentatives.  nb_affichee et nb_correcte sont recalculés
+  /// à chaque mise à jour pour refléter uniquement ces 10 dernières tentatives.
   Future<void> enregistrerStatistiquesQuestions(
-    List<ReponseEnregistree> historique,
+    List<ReponseEnregistree> reponses,
   ) async {
     final db = await database;
-    for (final reponse in historique) {
+    for (final reponse in reponses) {
       final existing = await db.query(
         'statistiques_questions',
         where: 'question_id = ?',
         whereArgs: [reponse.question.id],
       );
+
+      // Récupère la fenêtre courante (JSON array de 0/1).
+      List<int> fenetre = [];
+      if (existing.isNotEmpty) {
+        final raw = existing.first['historique'] as String?;
+        if (raw != null && raw.isNotEmpty) {
+          try {
+            fenetre = List<int>.from(jsonDecode(raw) as List);
+          } catch (_) {}
+        }
+      }
+
+      // Ajoute la nouvelle tentative et limite à 10.
+      fenetre.add(reponse.correcte ? 1 : 0);
+      if (fenetre.length > 10) fenetre = fenetre.sublist(fenetre.length - 10);
+
+      final nbAff = fenetre.length;
+      final nbCorr = fenetre.fold(0, (s, v) => s + v);
+
       if (existing.isEmpty) {
         await db.insert('statistiques_questions', {
           'question_id': reponse.question.id,
-          'nb_affichee': 1,
-          'nb_correcte': reponse.correcte ? 1 : 0,
+          'nb_affichee': nbAff,
+          'nb_correcte': nbCorr,
+          'historique': jsonEncode(fenetre),
         });
       } else {
-        final current = existing.first;
         await db.update(
           'statistiques_questions',
           {
-            'nb_affichee': (current['nb_affichee'] as int) + 1,
-            'nb_correcte': (current['nb_correcte'] as int) + (reponse.correcte ? 1 : 0),
+            'nb_affichee': nbAff,
+            'nb_correcte': nbCorr,
+            'historique': jsonEncode(fenetre),
           },
           where: 'question_id = ?',
           whereArgs: [reponse.question.id],

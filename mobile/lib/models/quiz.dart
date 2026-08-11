@@ -49,16 +49,28 @@ class Quiz {
     tempsRestant = mode.dureeTotale ?? mode.tempsParQuestion;
   }
 
+  static double _difficulteMultiplier(String niveau) {
+    switch (niveau) {
+      case 'Facile':
+        return 0.5;
+      case 'Difficile':
+        return 1.5;
+      default:
+        return 1.0;
+    }
+  }
+
   /// + répondre(question : Question, réponse : string) : bool
   /// [tempsRestantAuClic] est le temps restant au moment où le joueur a répondu.
   bool repondre(Question question, String reponse, int tempsRestantAuClic) {
     final correcte = question.verifierReponse(reponse);
     if (correcte) {
       final estBombardement = mode.dureeTotale != null;
-      final base = (10 * mode.multiplicateurScore).round();
+      final diff = _difficulteMultiplier(question.niveauComplexite);
+      final base = (10 * mode.multiplicateurScore * diff).round();
       int bonus = 0;
       if (!estBombardement && mode.tempsParQuestion > 0) {
-        bonus = (tempsRestantAuClic / mode.tempsParQuestion * 10).round();
+        bonus = (tempsRestantAuClic / mode.tempsParQuestion * 10).round().clamp(0, 10);
       }
       score += base + bonus;
       reponsesCorrectes.add(question);
