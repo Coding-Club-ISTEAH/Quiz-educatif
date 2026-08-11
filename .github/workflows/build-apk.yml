@@ -32,6 +32,10 @@ jobs:
         working-directory: mobile
         run: flutter pub get
 
+      - name: Préparer SQLite pour le web
+        working-directory: mobile
+        run: dart run sqflite_common_ffi_web:setup
+
       - name: Construire la version web
         working-directory: mobile
         run: flutter build web --base-href /Quiz-educatif/

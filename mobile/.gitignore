@@ -44,10 +44,8 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 
-# Screenshots et fichiers locaux
-*.png
-*.jpg
-*.jpeg
+# Screenshots de debug (garder les assets de l'app)
+# Les images dans assets/ sont incluses dans le repo
 
 # Claude Code (config locale)
 .claude/
