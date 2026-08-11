@@ -13086,7 +13086,16 @@ EPS:
         ),
     ]);
 
-              _QSeed(
+    await ajouterMatiere('Commun', 'Éducation à la Citoyenneté', [
+      _ChapitreSeed(
+        titre: 'Constitution, droits et lois',
+        cartes: [
+          'Une loi organique précise le fonctionnement des institutions constitutionnelles.',
+          'Le principe de non-discrimination interdit tout traitement différent sans raison légitime.',
+          'La citoyenneté active implique une participation volontaire à la vie publique.',
+        ],
+        questions: [
+          _QSeed(
             'Qu\'est-ce qu\'une loi organique?',
             ['Une loi qui précise le fonctionnement des institutions constitutionnelles', 'Une loi environnementale', 'Une loi sur l\'agriculture', 'Une loi provisoire'],
             'Une loi qui précise le fonctionnement des institutions constitutionnelles',
@@ -13795,6 +13804,13 @@ EPS:
           _QSeed(
             'Qu\'est-ce que l\'impressionnisme?',
             ['Un mouvement qui capture l\'impression fugitive de la lumière et du moment', 'Un mouvement réaliste strict', 'Un art géométrique abstrait', 'Un style médiéval'],
+            'Un mouvement qui capture l\'impression fugitive de la lumière et du moment',
+            'Les impressionnistes (Monet, Renoir, Degas) ont révolutionné la peinture au XIXe siècle en peignant en plein air pour capturer la lumière changeante.',
+            'Moyen',
+          ),
+        ],
+      ),
+    ]);
 
     await ajouterMatiere('Secondaire', 'Littérature Universelle', [
       _ChapitreSeed(
