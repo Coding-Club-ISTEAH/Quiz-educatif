@@ -1,7 +1,9 @@
 ﻿import 'dart:convert';
 
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:sqflite_common_ffi_web/sqflite_ffi_web.dart';
 
 import '../models/carte_mentale.dart';
 import '../models/chapitre.dart';
@@ -21,7 +23,10 @@ class DatabaseHelper {
   }
 
   Future<Database> _initDatabase() async {
-    final path = join(await getDatabasesPath(), 'quiz_educatif.db');
+    if (kIsWeb) {
+      databaseFactory = databaseFactoryFfiWeb;
+    }
+    final path = kIsWeb ? 'quiz_educatif.db' : join(await getDatabasesPath(), 'quiz_educatif.db');
     return openDatabase(
       path,
       version: 10,
