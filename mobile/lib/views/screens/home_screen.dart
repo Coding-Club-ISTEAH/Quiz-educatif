@@ -234,13 +234,13 @@ class _Header extends StatelessWidget {
         const EduCleLogo(),
         const Spacer(),
         _IconeBouton(
-          icone: Icons.bar_chart_rounded,
+          icone: Icons.query_stats_rounded,
           onTap: onStats,
           tooltip: 'Statistiques',
         ),
         const SizedBox(width: 8),
         _IconeBouton(
-          icone: Icons.leaderboard_rounded,
+          icone: Icons.emoji_events_rounded,
           onTap: onClassement,
           tooltip: 'Classement',
         ),

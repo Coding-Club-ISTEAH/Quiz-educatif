@@ -416,6 +416,64 @@ class DatabaseHelper {
     ''');
   }
 
+  /// Calcule maîtrise et réussite par matière selon la hiérarchie :
+  /// question → chapitre (moyenne des questions) → matière (moyenne des chapitres)
+  ///
+  /// - maitrise : questions jamais tentées comptent 0 %
+  /// - reussite : questions jamais tentées sont exclues de la moyenne (NULL)
+  Future<List<Map<String, dynamic>>> getMaitriseParMatiere() async {
+    final db = await database;
+    return db.rawQuery('''
+      SELECT
+        m.id,
+        m.nom,
+        IFNULL(AVG(chap.maitrise_pct), 0) AS maitrise,
+        AVG(chap.reussite_pct)             AS reussite
+      FROM matieres m
+      LEFT JOIN (
+        SELECT
+          c.matiere_id,
+          AVG(COALESCE(
+            CAST(sq.nb_correcte AS REAL) / NULLIF(sq.nb_affichee, 0) * 100,
+            0
+          )) AS maitrise_pct,
+          AVG(
+            CAST(sq.nb_correcte AS REAL) / NULLIF(sq.nb_affichee, 0) * 100
+          ) AS reussite_pct
+        FROM chapitres c
+        JOIN questions q ON q.chapitre_id = c.id
+        LEFT JOIN statistiques_questions sq ON sq.question_id = q.id
+        GROUP BY c.id
+      ) chap ON chap.matiere_id = m.id
+      GROUP BY m.id, m.nom
+      ORDER BY maitrise DESC
+    ''');
+  }
+
+  /// Calcule maîtrise et réussite globale (moyenne des moyennes par matière).
+  Future<Map<String, dynamic>> getMaitriseGlobale() async {
+    final rows = await getMaitriseParMatiere();
+    if (rows.isEmpty) {
+      return {'maitrise': 0.0, 'reussite': null, 'nb_matieres': 0};
+    }
+    double sumMaitrise = 0;
+    double sumReussite = 0;
+    int nbReussite = 0;
+    for (final r in rows) {
+      sumMaitrise += (r['maitrise'] as num? ?? 0).toDouble();
+      final re = r['reussite'];
+      if (re != null) {
+        sumReussite += (re as num).toDouble();
+        nbReussite++;
+      }
+    }
+    return {
+      'maitrise': sumMaitrise / rows.length,
+      'reussite': nbReussite > 0 ? sumReussite / nbReussite : null,
+      'nb_matieres': rows.length,
+    };
+  }
+
   Future<List<Map<String, dynamic>>> getScores({int? matiereId}) async {
     final db = await database;
     if (matiereId != null) {

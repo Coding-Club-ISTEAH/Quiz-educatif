@@ -505,7 +505,7 @@ class _MessageVide extends StatelessWidget {
       child: Column(
         children: [
           const Icon(
-            Icons.leaderboard_rounded,
+            Icons.emoji_events_rounded,
             size: 48,
             color: EduCleColors.textSecondary,
           ),

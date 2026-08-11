@@ -733,7 +733,7 @@ class _StatistiquesTabState extends State<_StatistiquesTab> {
 
   Future<void> _load() async {
     setState(() => _loading = true);
-    final sm = await DatabaseHelper.instance.getStatsByMatiere();
+    final sm = await DatabaseHelper.instance.getMaitriseParMatiere();
     final qf = await DatabaseHelper.instance.adminGetQuestionsFailles(limit: 10);
     setState(() {
       _statsMatieres = sm;
@@ -806,9 +806,14 @@ class _MatiereStat extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final nom = row['nom'] as String;
-    final nbT = (row['nb_total'] as int?) ?? 0;
-    final nbC = (row['nb_correctes'] as int?) ?? 0;
-    final pct = nbT > 0 ? (nbC / nbT) : 0.0;
+    final maitrise = (row['maitrise'] as num? ?? 0).toDouble();
+    final reussite = row['reussite'] as num?;
+    final mPct = maitrise.round();
+    Color c(int p) => p >= 70
+        ? EduCleColors.success
+        : p >= 40
+            ? const Color(0xFFD97706)
+            : EduCleColors.error;
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
@@ -819,34 +824,30 @@ class _MatiereStat extends StatelessWidget {
             children: [
               Expanded(
                   child: Text(nom,
-                      style:
-                          const TextStyle(fontWeight: FontWeight.w600))),
-              Text('$nbC / $nbT',
-                  style: const TextStyle(
-                      color: EduCleColors.textSecondary, fontSize: 13)),
-              const SizedBox(width: 8),
-              Text('${(pct * 100).round()} %',
+                      style: const TextStyle(fontWeight: FontWeight.w600))),
+              Text('🧠 $mPct %',
                   style: TextStyle(
                       fontWeight: FontWeight.w700,
-                      color: pct >= 0.7
-                          ? EduCleColors.success
-                          : pct >= 0.4
-                              ? const Color(0xFFD97706)
-                              : EduCleColors.error)),
+                      fontSize: 13,
+                      color: c(mPct))),
+              if (reussite != null) ...[
+                const SizedBox(width: 10),
+                Text('📊 ${reussite.round()} %',
+                    style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 13,
+                        color: c(reussite.round()))),
+              ],
             ],
           ),
           const SizedBox(height: 6),
           ClipRRect(
             borderRadius: BorderRadius.circular(4),
             child: LinearProgressIndicator(
-              value: pct.toDouble(),
+              value: (maitrise / 100).clamp(0, 1),
               minHeight: 6,
               backgroundColor: EduCleColors.border,
-              valueColor: AlwaysStoppedAnimation<Color>(pct >= 0.7
-                  ? EduCleColors.success
-                  : pct >= 0.4
-                      ? const Color(0xFFD97706)
-                      : EduCleColors.error),
+              valueColor: AlwaysStoppedAnimation<Color>(c(mPct)),
             ),
           ),
         ],

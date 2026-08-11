@@ -325,17 +325,16 @@ class QuizController extends ChangeNotifier {
     return resultat;
   }
 
-  Future<Map<String, dynamic>> getStatsGlobales() async {
-    if (kIsWeb) {
-      return {'nb_quiz': 0, 'score_total': 0, 'total_correctes': 0, 'total_questions': 0};
-    }
-    return _db.getStatsGlobales();
-  }
+  Future<Map<String, dynamic>> getStatsGlobales() => _db.getStatsGlobales();
 
-  Future<List<Map<String, dynamic>>> getStatsByMatiere() async {
-    if (kIsWeb) return [];
-    return _db.getStatsByMatiere();
-  }
+  Future<List<Map<String, dynamic>>> getStatsByMatiere() =>
+      _db.getStatsByMatiere();
+
+  Future<List<Map<String, dynamic>>> getMaitriseParMatiere() =>
+      _db.getMaitriseParMatiere();
+
+  Future<Map<String, dynamic>> getMaitriseGlobale() =>
+      _db.getMaitriseGlobale();
 
   Future<List<Map<String, dynamic>>> getScores({int? matiereId}) async {
     if (kIsWeb) return [];
