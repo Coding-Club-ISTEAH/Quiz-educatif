@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../../controllers/quiz_controller.dart';
 import '../../theme/app_theme.dart';
 import '../widgets/educle_app_bar.dart';
+import 'admin_screen.dart';
 
 const List<String> _kPays = [
   'Haïti',
@@ -319,12 +320,21 @@ class ReglagesScreen extends StatelessWidget {
             _CarteReglage(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
-                  _LigneInfo(libelle: 'Application', valeur: 'EduClé'),
-                  Divider(height: 20),
-                  _LigneInfo(libelle: 'Version', valeur: '1.0.0'),
-                  Divider(height: 20),
-                  _LigneInfo(libelle: 'Créé par', valeur: 'Coding Club ISTEAH'),
+                children: [
+                  const _LigneInfo(libelle: 'Application', valeur: 'EduClé'),
+                  const Divider(height: 20),
+                  GestureDetector(
+                    onLongPress: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                            builder: (_) => const AdminScreen()),
+                      );
+                    },
+                    child: const _LigneInfo(libelle: 'Version', valeur: '1.0.0'),
+                  ),
+                  const Divider(height: 20),
+                  const _LigneInfo(
+                      libelle: 'Créé par', valeur: 'Coding Club ISTEAH'),
                 ],
               ),
             ),
