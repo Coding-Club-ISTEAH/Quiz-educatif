@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+  body { margin: 0; }
+  a { color: #2f6fed; text-decoration: none; }
+  a:hover { color: #1d4fc4; }
+  input::placeholder { color: #9aa1ad; }
+</style>
+</helmet>
+
+<div style="font-family:'Manrope',sans-serif;background:#f5f6f8;min-height:100vh;color:#1a1d24;">
+
+  <header style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:20px 48px;background:#ffffff;border-bottom:1px solid #ececf0;">
+    <div style="display:flex;align-items:center;gap:10px;">
+      <div style="width:38px;height:38px;border-radius:10px;background:#2f6fed;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:19px;">E</div>
+      <span style="font-size:20px;font-weight:800;letter-spacing:-0.01em;">EduClé</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:18px;flex-wrap:wrap;">
+      <button style="width:40px;height:40px;border-radius:50%;border:1px solid #e3e5ea;background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;" title="Réglages" style-hover="background:#f5f6f8;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5b6270" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h0a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82v0a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+      </button>
+      <a href="#" style="font-size:15px;font-weight:700;color:#4a4f5a;">Se connecter</a>
+      <a href="#" style="font-size:15px;font-weight:700;color:#fff;background:#2f6fed;padding:10px 18px;border-radius:10px;" style-hover="background:#1d4fc4;">Créer un compte</a>
+    </div>
+  </header>
+
+  <main style="max-width:1180px;margin:0 auto;padding:40px 48px 64px;">
+
+    <section style="background:#1e2a52;border-radius:24px;padding:44px 40px;display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap;">
+      <div style="max-width:520px;">
+        <div style="color:#8fa4ff;font-weight:800;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:10px;">Sans compte requis</div>
+        <h1 style="color:#fff;font-size:36px;font-weight:800;margin:0 0 12px;line-height:1.15;">Lance un quiz, toutes matières confondues</h1>
+        <p style="color:#c3caeb;font-size:16px;line-height:1.5;margin:0;">Un quiz aléatoire généré avec tes réglages actuels (niveau, difficulté, nombre de questions).</p>
+      </div>
+      <button onClick="{{ playAll }}" style="display:flex;align-items:center;gap:10px;background:#fff;color:#1e2a52;border:none;border-radius:14px;padding:18px 30px;font-size:18px;font-weight:800;cursor:pointer;flex-shrink:0;" style-hover="background:#eef1fb;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="#1e2a52"><path d="M7 5.5v13a1 1 0 0 0 1.53.85l11-6.5a1 1 0 0 0 0-1.7l-11-6.5A1 1 0 0 0 7 5.5z"></path></svg>
+        Jouer (Tout)
+      </button>
+    </section>
+
+    <section style="margin-top:44px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:18px;">
+        <h2 style="font-size:22px;font-weight:800;margin:0;">Thématiques</h2>
+        <sc-if value="{{ hasPlayedBefore }}" hint-placeholder-val="{{ true }}">
+          <button onClick="{{ playShortcut }}" style="display:flex;align-items:center;gap:8px;background:#eef1fb;color:#2f6fed;border:2px solid #2f6fed;border-radius:999px;padding:8px 16px;font-size:14px;font-weight:700;cursor:pointer;" style-hover="background:#e0e6fb;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="#2f6fed"><path d="M7 5.5v13a1 1 0 0 0 1.53.85l11-6.5a1 1 0 0 0 0-1.7l-11-6.5A1 1 0 0 0 7 5.5z"></path></svg>
+            Rejouer : {{ lastSubjectLabel }}
+          </button>
+        </sc-if>
+      </div>
+
+      <div style="position:relative;max-width:420px;margin-bottom:22px;">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#9aa1ad" stroke-width="2" stroke-linecap="round" style="position:absolute;left:14px;top:50%;transform:translateY(-50%);"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3"></path></svg>
+        <input value="{{ query }}" onChange="{{ onQueryChange }}" placeholder="Rechercher une matière…" style="width:100%;padding:12px 14px 12px 40px;border-radius:12px;border:1px solid #e3e5ea;font-size:15px;font-family:inherit;box-sizing:border-box;background:#fff;outline:none;" />
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:14px;">
+
+        <sc-if value="{{ visMath }}" hint-placeholder-val="{{ true }}">
+        <div style="aspect-ratio:1;border-radius:16px;background:#fff;border:1px solid #ececf0;padding:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;cursor:pointer;box-shadow:0 1px 3px rgba(0,0,0,0.04);" style-hover="transform:translateY(-3px);box-shadow:0 8px 18px rgba(0,0,0,0.1);">
+          <span style="font-size:32px;">🧮</span>
+          <span style="color:#2f6fed;font-weight:800;font-size:14px;text-align:center;">Mathématiques</span>
+        </div>
+        </sc-if>
+
+        <sc-if value="{{ visFrancais }}" hint-placeholder-val="{{ true }}">
+        <div style="aspect-ratio:1;border-radius:16px;background:#fff;border:1px solid #ececf0;padding:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;cursor:pointer;box-shadow:0 1px 3px rgba(0,0,0,0.04);" style-hover="transform:translateY(-3px);box-shadow:0 8px 18px rgba(0,0,0,0.1);">
+          <span style="font-size:32px;">📖</span>
+          <span style="color:#8b5cf6;font-weight:800;font-size:14px;text-align:center;">Français</span>
+        </div>
+        </sc-if>
+
+        <sc-if value="{{ visSciExp }}" hint-placeholder-val="{{ true }}">
+        <div style="aspect-ratio:1;border-radius:16px;background:#fff;border:1px solid #ececf0;padding:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;cursor:pointer;box-shadow:0 1px 3px rgba(0,0,0,0.04);" style-hover="transform:translateY(-3px);box-shadow:0 8px 18px rgba(0,0,0,0.1);">
+          <span style="font-size:32px;">🧪</span>
+          <span style="color:#0ea5a5;font-weight:800;font-size:14px;text-align:center;">Sciences exp.</span>
+        </div>
+        </sc-if>
+
+        <sc-if value="{{ visSciSoc }}" hint-placeholder-val="{{ true }}">
+        <div style="aspect-ratio:1;border-radius:16px;background:#fff;border:1px solid #ececf0;padding:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;cursor:pointer;box-shadow:0 1px 3px rgba(0,0,0,0.04);" style-hover="transform:translateY(-3px);box-shadow:0 8px 18px rgba(0,0,0,0.1);">
+          <span style="font-size:32px;">👥</span>
+          <span style="color:#e08e2b;font-weight:800;font-size:14px;text-align:center;">Sciences soc.</span>
+        </div>
+        </sc-if>
+
+        <sc-if value="{{ visHistoire }}" hint-placeholder-val="{{ true }}">
+        <div style="aspect-ratio:1;border-radius:16px;background:#fff;border:1px solid #ececf0;padding:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;cursor:pointer;box-shadow:0 1px 3px rgba(0,0,0,0.04);" style-hover="transform:translateY(-3px);box-shadow:0 8px 18px rgba(0,0,0,0.1);">
+          <span style="font-size:32px;">📜</span>
+          <span style="color:#f2705a;font-weight:800;font-size:14px;text-align:center;">Histoire</span>
+        </div>
+        </sc-if>
+
+        <sc-if value="{{ visGeo }}" hint-placeholder-val="{{ true }}">
+        <div style="aspect-ratio:1;border-radius:16px;background:#fff;border:1px solid #ececf0;padding:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;cursor:pointer;box-shadow:0 1px 3px rgba(0,0,0,0.04);" style-hover="transform:translateY(-3px);box-shadow:0 8px 18px rgba(0,0,0,0.1);">
+          <span style="font-size:32px;">🌍</span>
+          <span style="color:#2fa84f;font-weight:800;font-size:14px;text-align:center;">Géographie</span>
+        </div>
+        </sc-if>
+
+        <sc-if value="{{ visLitterature }}" hint-placeholder-val="{{ true }}">
+        <div style="aspect-ratio:1;border-radius:16px;background:#fff;border:1px solid #ececf0;padding:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;cursor:pointer;box-shadow:0 1px 3px rgba(0,0,0,0.04);" style-hover="transform:translateY(-3px);box-shadow:0 8px 18px rgba(0,0,0,0.1);">
+          <span style="font-size:32px;">🪶</span>
+          <span style="color:#ec4899;font-weight:800;font-size:14px;text-align:center;">Littérature</span>
+        </div>
+        </sc-if>
+
+        <sc-if value="{{ visEspagnol }}" hint-placeholder-val="{{ true }}">
+        <div style="aspect-ratio:1;border-radius:16px;background:#fff;border:1px solid #ececf0;padding:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;cursor:pointer;box-shadow:0 1px 3px rgba(0,0,0,0.04);" style-hover="transform:translateY(-3px);box-shadow:0 8px 18px rgba(0,0,0,0.1);">
+          <span style="font-size:32px;">🇪🇸</span>
+          <span style="color:#e0453f;font-weight:800;font-size:14px;text-align:center;">Espagnol</span>
+        </div>
+        </sc-if>
+
+        <sc-if value="{{ visAnglais }}" hint-placeholder-val="{{ true }}">
+        <div style="aspect-ratio:1;border-radius:16px;background:#fff;border:1px solid #ececf0;padding:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;cursor:pointer;box-shadow:0 1px 3px rgba(0,0,0,0.04);" style-hover="transform:translateY(-3px);box-shadow:0 8px 18px rgba(0,0,0,0.1);">
+          <span style="font-size:32px;">🔤</span>
+          <span style="color:#78716c;font-weight:800;font-size:14px;text-align:center;">Anglais</span>
+        </div>
+        </sc-if>
+
+        <sc-if value="{{ visChimie }}" hint-placeholder-val="{{ true }}">
+        <div style="aspect-ratio:1;border-radius:16px;background:#fff;border:1px solid #ececf0;padding:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;cursor:pointer;box-shadow:0 1px 3px rgba(0,0,0,0.04);" style-hover="transform:translateY(-3px);box-shadow:0 8px 18px rgba(0,0,0,0.1);">
+          <span style="font-size:32px;">⚗️</span>
+          <span style="color:#2f6fed;font-weight:800;font-size:14px;text-align:center;">Chimie</span>
+        </div>
+        </sc-if>
+
+        <sc-if value="{{ visPhysique }}" hint-placeholder-val="{{ true }}">
+        <div style="aspect-ratio:1;border-radius:16px;background:#fff;border:1px solid #ececf0;padding:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;cursor:pointer;box-shadow:0 1px 3px rgba(0,0,0,0.04);" style-hover="transform:translateY(-3px);box-shadow:0 8px 18px rgba(0,0,0,0.1);">
+          <span style="font-size:32px;">⚛️</span>
+          <span style="color:#8b5cf6;font-weight:800;font-size:14px;text-align:center;">Physique</span>
+        </div>
+        </sc-if>
+
+        <sc-if value="{{ visCG }}" hint-placeholder-val="{{ true }}">
+        <div style="aspect-ratio:1;border-radius:16px;background:#fff;border:1px solid #ececf0;padding:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;cursor:pointer;box-shadow:0 1px 3px rgba(0,0,0,0.04);" style-hover="transform:translateY(-3px);box-shadow:0 8px 18px rgba(0,0,0,0.1);">
+          <span style="font-size:32px;">💡</span>
+          <span style="color:#0ea5a5;font-weight:800;font-size:14px;text-align:center;">Connaiss. gén.</span>
+        </div>
+        </sc-if>
+
+        <sc-if value="{{ visEPS }}" hint-placeholder-val="{{ true }}">
+        <div style="aspect-ratio:1;border-radius:16px;background:#fff;border:1px solid #ececf0;padding:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;cursor:pointer;box-shadow:0 1px 3px rgba(0,0,0,0.04);" style-hover="transform:translateY(-3px);box-shadow:0 8px 18px rgba(0,0,0,0.1);">
+          <span style="font-size:32px;">🏃</span>
+          <span style="color:#e08e2b;font-weight:800;font-size:14px;text-align:center;">EPS</span>
+        </div>
+        </sc-if>
+
+        <sc-if value="{{ visEEA }}" hint-placeholder-val="{{ true }}">
+        <div style="aspect-ratio:1;border-radius:16px;background:#fff;border:1px solid #ececf0;padding:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;cursor:pointer;box-shadow:0 1px 3px rgba(0,0,0,0.04);" style-hover="transform:translateY(-3px);box-shadow:0 8px 18px rgba(0,0,0,0.1);">
+          <span style="font-size:32px;">🌱</span>
+          <span style="color:#f2705a;font-weight:800;font-size:14px;text-align:center;">EEA</span>
+        </div>
+        </sc-if>
+
+        <sc-if value="{{ visETAP }}" hint-placeholder-val="{{ true }}">
+        <div style="aspect-ratio:1;border-radius:16px;background:#fff;border:1px solid #ececf0;padding:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;cursor:pointer;box-shadow:0 1px 3px rgba(0,0,0,0.04);" style-hover="transform:translateY(-3px);box-shadow:0 8px 18px rgba(0,0,0,0.1);">
+          <span style="font-size:32px;">🛠️</span>
+          <span style="color:#2fa84f;font-weight:800;font-size:14px;text-align:center;">ETAP</span>
+        </div>
+        </sc-if>
+
+        <sc-if value="{{ visEC }}" hint-placeholder-val="{{ true }}">
+        <div style="aspect-ratio:1;border-radius:16px;background:#fff;border:1px solid #ececf0;padding:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;cursor:pointer;box-shadow:0 1px 3px rgba(0,0,0,0.04);" style-hover="transform:translateY(-3px);box-shadow:0 8px 18px rgba(0,0,0,0.1);">
+          <span style="font-size:32px;">⚖️</span>
+          <span style="color:#ec4899;font-weight:800;font-size:14px;text-align:center;">EC</span>
+        </div>
+        </sc-if>
+
+      </div>
+
+      <sc-if value="{{ noResults }}" hint-placeholder-val="{{ false }}">
+        <div style="text-align:center;color:#9aa1ad;font-size:15px;padding:40px 0;">Aucune matière ne correspond à « {{ query }} ».</div>
+      </sc-if>
+    </section>
+
+  </main>
+
+  <footer style="text-align:center;color:#a3a8b3;font-size:13px;padding:24px 0 36px;">EduClé — Coding Club ISTEAH</footer>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;hasPlayedBefore&quot;: {&quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Comportement&quot;}, &quot;lastSubjectLabel&quot;: {&quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;Mathématiques – Chapitre 3&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Comportement&quot;}}">
+class Component extends DCLogic {
+  state = { query: '' };
+
+  subjects = [
+    'Mathématiques', 'Français', 'Sciences expérimentales', 'Sciences sociales',
+    'Histoire', 'Géographie', 'Littérature', 'Espagnol', 'Anglais', 'Chimie', 'Physique',
+    'Connaissances générales', 'EPS', 'EEA', 'ETAP', 'EC'
+  ];
+
+  matches(name) {
+    const q = this.state.query.trim().toLowerCase();
+    if (!q) return true;
+    return name.toLowerCase().includes(q);
+  }
+
+  renderVals() {
+    const q = this.state.query;
+    const vis = {
+      visMath: this.matches('Mathématiques'),
+      visFrancais: this.matches('Français'),
+      visSciExp: this.matches('Sciences expérimentales'),
+      visSciSoc: this.matches('Sciences sociales'),
+      visHistoire: this.matches('Histoire'),
+      visGeo: this.matches('Géographie'),
+      visLitterature: this.matches('Littérature'),
+      visEspagnol: this.matches('Espagnol'),
+      visAnglais: this.matches('Anglais'),
+      visChimie: this.matches('Chimie'),
+      visPhysique: this.matches('Physique'),
+      visCG: this.matches('Connaissances générales'),
+      visEPS: this.matches('EPS'),
+      visEEA: this.matches('EEA'),
+      visETAP: this.matches('ETAP'),
+      visEC: this.matches('EC'),
+    };
+    const noResults = q.trim().length > 0 && !Object.values(vis).some(Boolean);
+    return {
+      query: q,
+      onQueryChange: (e) => this.setState({ query: e.target.value }),
+      noResults,
+      hasPlayedBefore: this.props.hasPlayedBefore ?? true,
+      lastSubjectLabel: this.props.lastSubjectLabel ?? 'Mathématiques – Chapitre 3',
+      playAll: () => alert('Lance un quiz aléatoire → écran Mode de jeu'),
+      playShortcut: () => alert('Relance la dernière combinaison matière/chapitre → écran Mode de jeu'),
+      ...vis,
+    };
+  }
+}
+
+</script>
+</body>
+</html>

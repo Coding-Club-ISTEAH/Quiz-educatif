@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+  body { margin: 0; }
+  a { color: #2f6fed; text-decoration: none; }
+  a:hover { color: #1d4fc4; }
+</style>
+</helmet>
+
+<div style="font-family:'Manrope',sans-serif;background:#f5f6f8;min-height:100vh;color:#1a1d24;">
+
+  <header style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:20px 48px;background:#ffffff;border-bottom:1px solid #ececf0;">
+    <a href="#" style="display:flex;align-items:center;gap:8px;color:#4a4f5a;font-weight:700;font-size:15px;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4a4f5a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"></path></svg>
+      Retour
+    </a>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <div style="width:34px;height:34px;border-radius:9px;background:#2f6fed;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:17px;">E</div>
+      <span style="font-size:18px;font-weight:800;letter-spacing:-0.01em;">EduClé</span>
+    </div>
+    <div style="width:16px;"></div>
+  </header>
+
+  <main style="max-width:640px;margin:0 auto;padding:40px 32px 72px;">
+
+    <h1 style="font-size:26px;font-weight:800;margin:0 0 6px;">Réglages</h1>
+    <p style="color:#6a707c;font-size:15px;margin:0 0 36px;line-height:1.5;">Ces réglages s'appliquent à toutes tes prochaines parties, jusqu'à ce que tu les modifies.</p>
+
+    <div style="background:#fff;border:1px solid #ececf0;border-radius:18px;padding:26px 24px;margin-bottom:20px;">
+      <div style="font-weight:800;font-size:15.5px;margin-bottom:4px;">Niveau scolaire</div>
+      <div style="color:#9aa1ad;font-size:13.5px;margin-bottom:16px;">Une seule sélection.</div>
+      <div style="display:flex;flex-wrap:wrap;gap:10px;">
+        <sc-for list="{{ niveaux }}" as="n" hint-placeholder-count="7">
+          <button onClick="{{ setNiveau(n.label) }}" style="{{ n.style }}">{{ n.label }}</button>
+        </sc-for>
+      </div>
+    </div>
+
+    <div style="background:#fff;border:1px solid #ececf0;border-radius:18px;padding:26px 24px;margin-bottom:20px;">
+      <div style="font-weight:800;font-size:15.5px;margin-bottom:4px;">Difficulté</div>
+      <div style="color:#9aa1ad;font-size:13.5px;margin-bottom:16px;">Une seule sélection.</div>
+      <div style="display:flex;flex-wrap:wrap;gap:10px;">
+        <sc-for list="{{ difficultes }}" as="d" hint-placeholder-count="3">
+          <button onClick="{{ setDifficulte(d.label) }}" style="{{ d.style }}">{{ d.label }}</button>
+        </sc-for>
+      </div>
+    </div>
+
+    <div style="background:#fff;border:1px solid #ececf0;border-radius:18px;padding:26px 24px;margin-bottom:8px;">
+      <div style="font-weight:800;font-size:15.5px;margin-bottom:4px;">Nombre de questions</div>
+      <div style="color:#9aa1ad;font-size:13.5px;margin-bottom:16px;">Ne s'applique pas au mode Bombardement (durée fixe de 1 minute).</div>
+      <div style="display:flex;flex-wrap:wrap;gap:10px;">
+        <sc-for list="{{ nbQuestions }}" as="q" hint-placeholder-count="2">
+          <button onClick="{{ setNbQuestions(q.value) }}" style="{{ q.style }}">{{ q.value }} questions</button>
+        </sc-for>
+      </div>
+    </div>
+
+    <button onClick="{{ save }}" style="width:100%;margin-top:28px;background:#2f6fed;color:#fff;border:none;border-radius:14px;padding:16px;font-size:16px;font-weight:800;cursor:pointer;" style-hover="background:#1d4fc4;">Enregistrer</button>
+
+  </main>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { niveau: '9e', difficulte: 'Moyen', nb: 10 };
+
+  chipStyleFor(value, current) {
+    const active = value === current;
+    return [
+      'border-radius:999px', 'padding:10px 18px', 'font-size:14.5px', 'font-weight:700',
+      'cursor:pointer', 'border:2px solid ' + (active ? '#2f6fed' : '#e3e5ea'),
+      'background:' + (active ? '#e9f0fe' : '#fff'),
+      'color:' + (active ? '#2f6fed' : '#4a4f5a'),
+    ].join(';');
+  }
+
+  renderVals() {
+    return {
+      niveaux: ['7e', '8e', '9e', 'NS1', 'NS2', 'NS3', 'NS4'].map(n => ({ label: n, style: this.chipStyleFor(n, this.state.niveau) })),
+      difficultes: ['Facile', 'Moyen', 'Difficile'].map(d => ({ label: d, style: this.chipStyleFor(d, this.state.difficulte) })),
+      nbQuestions: [10, 20].map(q => ({ value: q, style: this.chipStyleFor(q, this.state.nb) })),
+      setNiveau: (n) => () => this.setState({ niveau: n }),
+      setDifficulte: (d) => () => this.setState({ difficulte: d }),
+      setNbQuestions: (q) => () => this.setState({ nb: q }),
+      save: () => alert('Réglages enregistrés : ' + this.state.niveau + ', ' + this.state.difficulte + ', ' + this.state.nb + ' questions'),
+    };
+  }
+}
+
+</script>
+</body>
+</html>
