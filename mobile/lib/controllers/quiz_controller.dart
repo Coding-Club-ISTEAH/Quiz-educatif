@@ -36,7 +36,7 @@ class QuizController extends ChangeNotifier {
   bool chargement = false;
   bool quizEnCoursDisponible = false;
   bool profilConfigure = false;
-  String _niveauScolaire = 'Fondamental';
+  String _niveauScolaire = 'Fondamentale';
   String _annee = '7e AF';
   String _pays = 'Haïti';
   String _ville = '';

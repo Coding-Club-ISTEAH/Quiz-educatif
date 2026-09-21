@@ -220,12 +220,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             children: [
               Expanded(
                 child: _ChipCycle(
-                  label: 'Fondamental',
+                  label: 'Fondamentale',
                   sousTitre: '7e à 9e AF',
-                  selectionne: ctrl.niveauScolaire == 'Fondamental',
+                  selectionne: ctrl.niveauScolaire == 'Fondamentale',
                   onTap: () => context
                       .read<QuizController>()
-                      .changerNiveauScolaire('Fondamental'),
+                      .changerNiveauScolaire('Fondamentale'),
                 ),
               ),
               const SizedBox(width: 12),

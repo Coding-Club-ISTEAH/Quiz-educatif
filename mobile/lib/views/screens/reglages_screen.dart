@@ -167,13 +167,13 @@ class ReglagesScreen extends StatelessWidget {
                     children: [
                       Expanded(
                         child: _BoutonCycle(
-                          label: 'Fondamental',
+                          label: 'Fondamentale',
                           sousTitre: '7e à 9e AF',
                           selectionne:
-                              controller.niveauScolaire == 'Fondamental',
+                              controller.niveauScolaire == 'Fondamentale',
                           onTap: () => context
                               .read<QuizController>()
-                              .changerNiveauScolaire('Fondamental'),
+                              .changerNiveauScolaire('Fondamentale'),
                         ),
                       ),
                       const SizedBox(width: 10),

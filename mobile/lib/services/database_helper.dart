@@ -43,7 +43,7 @@ class DatabaseHelper {
     if (oldVersion < 3) {
       try {
         await db.execute(
-          "ALTER TABLE user_preferences ADD COLUMN niveau_scolaire TEXT NOT NULL DEFAULT 'Fondamental'",
+          "ALTER TABLE user_preferences ADD COLUMN niveau_scolaire TEXT NOT NULL DEFAULT 'Fondamentale'",
         );
       } catch (_) {}
       await _reseedAll(db);
@@ -251,7 +251,7 @@ class DatabaseHelper {
       CREATE TABLE IF NOT EXISTS user_preferences (
         id INTEGER PRIMARY KEY,
         zone TEXT NOT NULL DEFAULT '',
-        niveau_scolaire TEXT NOT NULL DEFAULT 'Fondamental',
+        niveau_scolaire TEXT NOT NULL DEFAULT 'Fondamentale',
         annee TEXT NOT NULL DEFAULT '7e AF',
         xp_total INTEGER NOT NULL DEFAULT 0,
         pieces_total INTEGER NOT NULL DEFAULT 0
@@ -680,8 +680,8 @@ class DatabaseHelper {
   Future<String> getNiveauScolaire() async {
     final db = await database;
     final rows = await db.query('user_preferences', where: 'id = 1');
-    if (rows.isEmpty) return 'Fondamental';
-    return (rows.first['niveau_scolaire'] as String?) ?? 'Fondamental';
+    if (rows.isEmpty) return 'Fondamentale';
+    return (rows.first['niveau_scolaire'] as String?) ?? 'Fondamentale';
   }
 
   Future<void> setNiveauScolaire(String niveau) async {
@@ -761,7 +761,7 @@ class DatabaseHelper {
       await db.insert('user_preferences', {
         'id': 1,
         'zone': '',
-        'niveau_scolaire': 'Fondamental',
+        'niveau_scolaire': 'Fondamentale',
         'annee': '7e AF',
         'pays': 'Haïti',
         'ville': '',
@@ -5224,7 +5224,7 @@ EPS:
         ),
     ]);
 
-    await ajouterMatiere('Fondamental', 'Sciences Sociales', [
+    await ajouterMatiere('Fondamentale', 'Sciences Sociales', [
       _ChapitreSeed(
           titre: 'Géographie physique d\'Haïti',
           cartes: [
@@ -5975,7 +5975,7 @@ EPS:
         ),
     ]);
 
-    await ajouterMatiere('Fondamental', 'Éducation à la Technologie et aux Activités Productives', [
+    await ajouterMatiere('Fondamentale', 'Éducation à la Technologie et aux Activités Productives', [
       _ChapitreSeed(
           titre: 'Technologie et informatique de base',
           cartes: [
@@ -6726,7 +6726,7 @@ EPS:
         ),
     ]);
 
-    await ajouterMatiere('Commun', 'Physique', [
+    await ajouterMatiere('Secondaire', 'Physique', [
       _ChapitreSeed(
           titre: 'Mécanique : mouvements et forces',
           cartes: [
@@ -8207,7 +8207,7 @@ EPS:
         ),
     ]);
 
-    await ajouterMatiere('Commun', 'Biologie', [
+    await ajouterMatiere('Secondaire', 'Biologie', [
       _ChapitreSeed(
           titre: 'Cellule et organisation du vivant',
           cartes: [
@@ -8951,7 +8951,7 @@ EPS:
         ),
     ]);
 
-    await ajouterMatiere('Commun', 'Géologie', [
+    await ajouterMatiere('Secondaire', 'Géologie', [
       _ChapitreSeed(
           titre: 'Structure interne de la Terre',
           cartes: [
@@ -14740,6 +14740,220 @@ EPS:
               ['Dire le contraire de ce qu\'on pense pour critiquer ou se moquer avec finesse', 'Exagérer pour impressionner', 'Comparer deux choses', 'Répéter une idée'],
               'Dire le contraire de ce qu\'on pense pour critiquer ou se moquer avec finesse',
               'Voltaire dans "Candide" : "Tout est pour le mieux dans le meilleur des mondes possibles" — ironie voltairienne face aux catastrophes. L\'ironie requiert un complicité du lecteur.',
+              'Moyen',
+            ),
+          ],
+        ),
+    ]);
+
+    await ajouterMatiere('Secondaire', 'Littérature Haïtienne', [
+      _ChapitreSeed(
+          titre: 'Les Pionniers et l\'École de 1836 (1804–1860)',
+          cartes: [
+          'Louis Boisrond-Tonnerre (1776-1806) est le rédacteur de l\'Acte de l\'Indépendance du 1er janvier 1804, premier texte littéraire officiel d\'Haïti indépendante.',
+          'Antoine Dupré (1782-1816) est connu pour son ode patriotique "Hymne à la Liberté", premier poème lyrique haïtien post-indépendance.',
+          'L\'École de 1836 est le premier mouvement littéraire organisé d\'Haïti, fondé par Ignace Nau, Coriolan Ardouin et leurs contemporains.',
+          'Ignace Nau (1808-1845) est considéré comme le premier véritable romancier haïtien avec "Isalina, ou une scène créole" (1836).',
+          'Coriolan Ardouin (1812-1835) fut poète romantique, l\'un des membres fondateurs de l\'École de 1836, mort très jeune.',
+          'L\'École de 1836 s\'inspire du Romantisme français (Victor Hugo, Lamartine, Musset) tout en cherchant à créer une identité littéraire haïtienne propre.',
+          'Baron de Vastey (1781-1820), secrétaire du roi Christophe, est l\'un des premiers écrivains politiques haïtiens post-indépendance.',
+          ],
+          questions: [
+          _QSeed(
+              'Qui a rédigé l\'Acte de l\'Indépendance d\'Haïti du 1er janvier 1804 ?',
+              ['Louis Boisrond-Tonnerre', 'Toussaint Louverture', 'Jean-Jacques Dessalines', 'Henri Christophe'],
+              'Louis Boisrond-Tonnerre',
+              'Boisrond-Tonnerre aurait déclaré vouloir écrire l\'Acte avec "la peau d\'un Blanc pour parchemin, son sang pour encre et une baïonnette pour plume." Ce texte fondateur est le point de départ de la littérature haïtienne.',
+              'Moyen',
+            ),
+          _QSeed(
+              'L\'École de 1836 est fondée principalement par :',
+              ['Ignace Nau et Coriolan Ardouin, entre autres jeunes romantiques haïtiens', 'Toussaint Louverture et Henri Christophe', 'Anténor Firmin et Oswald Durand', 'Jean Price-Mars et Jacques Roumain'],
+              'Ignace Nau et Coriolan Ardouin, entre autres jeunes romantiques haïtiens',
+              'Ce premier cercle littéraire organisé d\'Haïti s\'inspire du Romantisme européen et produit des poèmes, nouvelles et essais cherchant à définir une identité nationale haïtienne.',
+              'Moyen',
+            ),
+          _QSeed(
+              'Quelle est la particularité de l\'oeuvre "Isalina, ou une scène créole" (1836) d\'Ignace Nau ?',
+              ['C\'est considérée comme la première nouvelle (prose de fiction) de la littérature haïtienne', 'C\'est le premier roman en créole haïtien', 'C\'est une pièce de théâtre historique', 'C\'est un recueil de poèmes patriotiques'],
+              'C\'est considérée comme la première nouvelle (prose de fiction) de la littérature haïtienne',
+              'Ignace Nau (1808-1845) inaugure la prose romanesque haïtienne avec cette courte nouvelle d\'inspiration romantique. Il publie dans le journal "L\'Union" fondé par le groupe de 1836.',
+              'Difficile',
+            ),
+          _QSeed(
+              'De quel mouvement littéraire européen s\'inspire principalement l\'École de 1836 ?',
+              ['Le Romantisme français (Hugo, Lamartine, Musset)', 'Le Classicisme de Racine et Molière', 'Le Naturalisme de Zola', 'Le Surréalisme de Breton'],
+              'Le Romantisme français (Hugo, Lamartine, Musset)',
+              'Les membres de l\'École de 1836 lisent Victor Hugo, Lamartine, Alfred de Musset et Chateaubriand. Ils adaptent les thèmes romantiques (nature, patrie, liberté, mélancolie) au contexte haïtien.',
+              'Moyen',
+            ),
+          _QSeed(
+              'Antoine Dupré est surtout connu pour :',
+              ['Son "Hymne à la Liberté", premier poème lyrique haïtien post-indépendance', 'Le premier roman haïtien', 'La rédaction de la Constitution de 1816', 'Ses pièces de théâtre sur Dessalines'],
+              'Son "Hymne à la Liberté", premier poème lyrique haïtien post-indépendance',
+              'Antoine Dupré (1782-1816) chante la liberté et l\'indépendance dans une veine lyrique et patriotique. Mort jeune, son oeuvre reste brève mais symboliquement fondatrice.',
+              'Moyen',
+            ),
+          _QSeed(
+              'Baron de Vastey se distingue dans la littérature haïtienne post-indépendance comme :',
+              ['Un des premiers auteurs politiques haïtiens, secrétaire du roi Christophe et défenseur des droits des Noirs', 'Le fondateur de l\'École de 1836', 'Le premier auteur de théâtre haïtien', 'Un poète romantique de l\'école de Nau'],
+              'Un des premiers auteurs politiques haïtiens, secrétaire du roi Christophe et défenseur des droits des Noirs',
+              'Vastey (1781-1820) écrit "Le Système colonial dévoilé" (1814), qui dénonce les horreurs de l\'esclavage colonial. C\'est l\'un des premiers textes anticolonialistes haïtiens.',
+              'Difficile',
+            ),
+          _QSeed(
+              'Dans quel journal publient les membres de l\'École de 1836 ?',
+              ['"L\'Union", journal littéraire de Port-au-Prince', '"Le Moniteur haïtien"', '"La Gazette de Saint-Domingue"', '"L\'Indépendance haïtienne"'],
+              '"L\'Union", journal littéraire de Port-au-Prince',
+              'Le journal "L\'Union" est le premier organe de presse littéraire haïtien. Il sert de tribune à Ignace Nau, Coriolan Ardouin et leurs contemporains pour publier leurs poèmes, nouvelles et essais.',
+              'Difficile',
+            ),
+          _QSeed(
+              'Le premier texte littéraire fondateur de la nation haïtienne est généralement considéré comme :',
+              ['L\'Acte de l\'Indépendance du 1er janvier 1804, rédigé par Boisrond-Tonnerre', 'Les Mémoires de Toussaint Louverture', 'La Constitution de 1805', '"Isalina" d\'Ignace Nau'],
+              'L\'Acte de l\'Indépendance du 1er janvier 1804, rédigé par Boisrond-Tonnerre',
+              'Bien que ce soit un document politique, l\'Acte de l\'Indépendance est aussi un texte littéraire fondateur : il nomme le pays "Haïti" (nom taïno) et rompt symboliquement avec le nom colonial "Saint-Domingue".',
+              'Moyen',
+            ),
+          ],
+        ),
+      _ChapitreSeed(
+          titre: 'Du Romantisme haïtien à La Ronde (1860–1915)',
+          cartes: [
+          'Oswald Durand (1840-1906) est le "poète national" d\'Haïti, auteur du poème "Choucoune" (1883), premier grand poème en créole haïtien.',
+          '"Choucoune" d\'Oswald Durand (1883) est le poème haïtien le plus célèbre, mis en musique et devenu chanson traditionnelle haïtienne.',
+          'Masillon Coicou (1867-1908) est un poète patriotique et dramaturge, exécuté pour avoir participé à un complot contre le président Nord Alexis.',
+          'Georges Sylvain (1866-1925), fondateur de la revue "La Ronde" (1898), est aussi l\'auteur de "Cric? Crac!" (1901), adaptation de fables de La Fontaine en créole.',
+          'La revue "La Ronde" (1898-1902) marque un tournant : elle prône le cosmopolitisme et l\'ouverture à la littérature universelle plutôt que le patriotisme romantique.',
+          'Etzer Vilaire (1872-1951) est le plus grand poète de la période de La Ronde, auteur des "Dix hommes noirs" (1901), méditation sur la mort et la condition humaine.',
+          'Dantès Bellegarde (1877-1966) est un des intellectuels haïtiens les plus prolifiques, diplomate, historien, écrivain et défenseur de la culture haïtienne à l\'international.',
+          ],
+          questions: [
+          _QSeed(
+              'Pourquoi Oswald Durand est-il surnommé le "poète national" d\'Haïti ?',
+              ['Pour son oeuvre romantique et patriotique, dont "Choucoune" (1883), premier grand poème en créole haïtien', 'Pour avoir fondé l\'École de 1836', 'Pour ses travaux historiques sur l\'indépendance', 'Pour avoir fondé la revue La Ronde'],
+              'Pour son oeuvre romantique et patriotique, dont "Choucoune" (1883), premier grand poème en créole haïtien',
+              '"Choucoune" est mis en musique et devient "Yellow Bird" en anglais. Durand est le premier grand auteur à écrire avec fierté en créole haïtien, brisant un tabou littéraire de l\'époque.',
+              'Moyen',
+            ),
+          _QSeed(
+              'Quelle est la particularité du poème "Choucoune" (1883) d\'Oswald Durand ?',
+              ['C\'est le premier grand poème écrit en créole haïtien, adapté en chanson traditionnelle haïtienne', 'C\'est le premier poème haïtien publié en France', 'C\'est un poème épique sur la Révolution haïtienne', 'C\'est le premier poème féministe haïtien'],
+              'C\'est le premier grand poème écrit en créole haïtien, adapté en chanson traditionnelle haïtienne',
+              '"Choucoune" raconte une histoire d\'amour déçu en créole haïtien, avec une alternance de refrains. Sa mélodie a été reprise en anglais sous le titre "Yellow Bird", devenant un standard caribéen.',
+              'Moyen',
+            ),
+          _QSeed(
+              'Qu\'est-ce que la revue "La Ronde" (1898) ?',
+              ['Une revue littéraire haïtienne fondée par Georges Sylvain, prônant le cosmopolitisme et l\'ouverture à la littérature universelle', 'Un journal politique anti-américain', 'Un recueil de contes folkloriques haïtiens', 'La première revue en créole haïtien'],
+              'Une revue littéraire haïtienne fondée par Georges Sylvain, prônant le cosmopolitisme et l\'ouverture à la littérature universelle',
+              '"La Ronde" s\'oppose au repli patriotique du romantisme haïtien précédent. Elle réunit des auteurs comme Etzer Vilaire, Edmond Laforest, Dantès Bellegarde, Charles Moravia. Active de 1898 à 1902.',
+              'Moyen',
+            ),
+          _QSeed(
+              'Qui est Etzer Vilaire et pourquoi est-il important ?',
+              ['Le plus grand poète de La Ronde, auteur des "Dix hommes noirs" (1901), méditation sur la mort et la condition humaine', 'Le fondateur de la revue La Ronde', 'L\'auteur de "Choucoune"', 'Un romancier de l\'indigénisme haïtien'],
+              'Le plus grand poète de La Ronde, auteur des "Dix hommes noirs" (1901), méditation sur la mort et la condition humaine',
+              'Etzer Vilaire (1872-1951) est souvent considéré comme le plus grand poète haïtien du tournant du XXe siècle. Les "Dix hommes noirs" explorent la mort, la destinée et la souffrance avec une profondeur philosophique.',
+              'Moyen',
+            ),
+          _QSeed(
+              'L\'oeuvre "Cric? Crac!" (1901) de Georges Sylvain est :',
+              ['Une adaptation en créole haïtien des fables de La Fontaine, première oeuvre créole majeure d\'un auteur instruit', 'Un roman sur l\'occupation américaine', 'Un recueil de nouvelles réalistes', 'Un poème épique sur Dessalines'],
+              'Une adaptation en créole haïtien des fables de La Fontaine, première oeuvre créole majeure d\'un auteur instruit',
+              '"Cric? Crac!" utilise la formule traditionnelle haïtienne pour commencer un conte (Cric? Crac!). Sylvain adapte les fables de La Fontaine en créole avec un style populaire, montrant la richesse de la langue créole.',
+              'Difficile',
+            ),
+          _QSeed(
+              'Masillon Coicou est associé à :',
+              ['La poésie patriotique et le théâtre haïtien de la fin du XIXe siècle, exécuté en 1908 pour un complot politique', 'La fondation de l\'École de 1836', 'L\'indigénisme haïtien des années 1920', 'La littérature de la diaspora haïtienne'],
+              'La poésie patriotique et le théâtre haïtien de la fin du XIXe siècle, exécuté en 1908 pour un complot politique',
+              'Masillon Coicou (1867-1908) alterne entre poésie lyrique et pièces de théâtre. Sa mort politique tragique en fait une figure romantique de la résistance haïtienne.',
+              'Moyen',
+            ),
+          _QSeed(
+              'Dantès Bellegarde est principalement connu comme :',
+              ['Intellectuel, diplomate et défenseur de la culture haïtienne à l\'international, auteur prolifique sur l\'histoire d\'Haïti', 'Le fondateur du mouvement indigéniste', 'L\'auteur de "Gouverneurs de la Rosée"', 'Un poète créole de La Ronde'],
+              'Intellectuel, diplomate et défenseur de la culture haïtienne à l\'international, auteur prolifique sur l\'histoire d\'Haïti',
+              'Bellegarde (1877-1966) représente Haïti dans plusieurs institutions internationales. Ses ouvrages historiques comme "La Nation haïtienne" sont des références. Il est aussi critique de l\'occupation américaine d\'Haïti (1915-1934).',
+              'Moyen',
+            ),
+          _QSeed(
+              'Le mouvement de La Ronde (1898-1902) se caractérise par :',
+              ['Un cosmopolitisme littéraire : ouverture aux influences universelles et rupture avec le nationalisme romantique étroit', 'Un retour aux racines africaines et au folklore haïtien', 'Un engagement politique anti-américain', 'L\'usage exclusif du créole dans la littérature'],
+              'Un cosmopolitisme littéraire : ouverture aux influences universelles et rupture avec le nationalisme romantique étroit',
+              'Contrairement aux romantiques haïtiens patriotiques, les auteurs de La Ronde s\'inspirent librement de la littérature française symboliste (Verlaine, Mallarmé) et universelle, tout en restant profondément haïtiens.',
+              'Difficile',
+            ),
+          ],
+        ),
+      _ChapitreSeed(
+          titre: 'L\'Indigénisme et la littérature moderne (1915–1980)',
+          cartes: [
+          'L\'occupation américaine d\'Haïti (1915-1934) provoque en réaction le mouvement indigéniste, valorisant les racines africaines et paysannes d\'Haïti.',
+          'Jean Price-Mars (1876-1969) est le père de l\'indigénisme haïtien avec "Ainsi parla l\'Oncle" (1928), qui réhabilite le vaudou et les traditions africaines.',
+          'Jacques Roumain (1907-1944) est l\'auteur de "Gouverneurs de la Rosée" (1944), chef-d\'oeuvre de la littérature haïtienne et de la littérature caribéenne.',
+          'Carl Brouard (1902-1965) et Emile Roumer (1903-1988) sont deux poètes indigénistes majeurs, membres de la revue "La Revue Indigène" (1927).',
+          '"Gouverneurs de la Rosée" (1944) de Jacques Roumain raconte le retour au pays natal d\'un paysan haïtien et son combat pour amener l\'eau dans son village asséché.',
+          'René Depestre (né en 1926) est l\'un des plus grands poètes haïtiens du XXe siècle, lauréat du Prix Renaudot 1988 pour son roman "Hadriana dans tous mes rêves".',
+          'Marie Vieux-Chauvet (1916-1973) est l\'auteure de la trilogie "Amour, Colère et Folie" (1968), censuré sous Duvalier, un des chefs-d\'oeuvre de la littérature haïtienne.',
+          'Frankétienne (né en 1936) est l\'auteur de "Dézafi" (1975), premier roman écrit en créole haïtien, fondateur de l\'Espiralism, mouvement littéraire haïtien.',
+          ],
+          questions: [
+          _QSeed(
+              'Qu\'est-ce que l\'Indigénisme haïtien (années 1920-1940) ?',
+              ['Un mouvement culturel et littéraire valorisant les racines africaines, le vaudou et la culture paysanne haïtienne, en réaction à l\'occupation américaine', 'Un mouvement prônant l\'intégration dans la culture américaine', 'Un retour au classicisme français', 'Un mouvement exclusivement politique sans dimension littéraire'],
+              'Un mouvement culturel et littéraire valorisant les racines africaines, le vaudou et la culture paysanne haïtienne, en réaction à l\'occupation américaine',
+              'L\'occupation américaine (1915-1934) et ses discours racistes poussent les intellectuels haïtiens à valoriser fièrement leur héritage africain et leur culture populaire. Jean Price-Mars en est le théoricien fondateur.',
+              'Moyen',
+            ),
+          _QSeed(
+              'Quelle est l\'oeuvre maîtresse de Jean Price-Mars et pourquoi est-elle fondatrice ?',
+              ['"Ainsi parla l\'Oncle" (1928) : elle réhabilite le vaudou et les traditions africaines haïtiennes, contre le "bovarysme collectif" des élites haïtiennes', '"Gouverneurs de la Rosée" (1944)', '"La Nation haïtienne" (1924)', '"Les Fan tômes" (1935)'],
+              '"Ainsi parla l\'Oncle" (1928) : elle réhabilite le vaudou et les traditions africaines haïtiennes, contre le "bovarysme collectif" des élites haïtiennes',
+              'Price-Mars critique les élites haïtiennes qui imitent la France et rejettent leurs propres racines. Il emploie le terme "bovarysme collectif" pour décrire cette aliénation culturelle. Son oeuvre influence la Négritude (Césaire, Senghor).',
+              'Difficile',
+            ),
+          _QSeed(
+              'De quoi parle "Gouverneurs de la Rosée" (1944) de Jacques Roumain ?',
+              ['Du retour au village natal d\'un paysan haïtien (Manuel) qui cherche à réconcilier sa communauté divisée et à trouver de l\'eau', 'De la Révolution haïtienne de 1804', 'De l\'occupation américaine d\'Haïti', 'D\'un intellectuel haïtien exilé en France'],
+              'Du retour au village natal d\'un paysan haïtien (Manuel) qui cherche à réconcilier sa communauté divisée et à trouver de l\'eau',
+              'Manuel revient de Cuba où il a travaillé dans les plantations. Il découvre son village asséché et divisé par une vieille querelle. Son combat pour l\'eau (et sa mort) en fait un personnage christique de la littérature caribéenne.',
+              'Moyen',
+            ),
+          _QSeed(
+              'Jacques Roumain appartient à quelle période de la littérature haïtienne ?',
+              ['L\'Indigénisme (1920-1946), période NS3 dans le curriculum haïtien', 'La Ronde (1898-1915)', 'L\'École de 1836', 'La littérature de la diaspora contemporaine'],
+              'L\'Indigénisme (1920-1946), période NS3 dans le curriculum haïtien',
+              'Jacques Roumain (1907-1944) cofonde la revue "La Revue Indigène" en 1927 et crée le Parti Communiste haïtien en 1934. "Gouverneurs de la Rosée" paraît quelques mois après sa mort à 37 ans.',
+              'Moyen',
+            ),
+          _QSeed(
+              'Frankétienne est connu pour :',
+              ['"Dézafi" (1975), premier roman écrit en créole haïtien, et pour l\'Espiralism, courant littéraire haïtien qu\'il cofonde', 'L\'adaptation des fables de La Fontaine en créole', '"Gouverneurs de la Rosée"', 'La fondation de la revue La Ronde'],
+              '"Dézafi" (1975), premier roman écrit en créole haïtien, et pour l\'Espiralism, courant littéraire haïtien qu\'il cofonde',
+              'Frankétienne (né en 1936, de son vrai nom Franck Étienne) est un artiste total : peintre, dramaturge, romancier, poète. "Dézafi" marque le début d\'une littérature haïtienne pleinement en créole.',
+              'Moyen',
+            ),
+          _QSeed(
+              'Marie Vieux-Chauvet est connue pour :',
+              ['La trilogie "Amour, Colère et Folie" (1968), censurée sous Duvalier, dénonçant la dictature et la violence en Haïti', '"Gouverneurs de la Rosée"', 'Les poèmes indigénistes des années 1930', 'La fondation du mouvement Espiralism'],
+              'La trilogie "Amour, Colère et Folie" (1968), censurée sous Duvalier, dénonçant la dictature et la violence en Haïti',
+              'Marie Vieux-Chauvet (1916-1973) publie sa trilogie en France. François Duvalier (Papa Doc) la contraint à racheter tous les exemplaires. Elle s\'exile et meurt à New York. Son oeuvre est redécouverte après sa mort.',
+              'Difficile',
+            ),
+          _QSeed(
+              'René Depestre a reçu le Prix Renaudot 1988 pour :',
+              ['"Hadriana dans tous mes rêves", roman mêlant vaudou, érotisme et histoire haïtienne', '"Les Fantoches"', '"Journal d\'un animal marin"', '"Bonjour et Adieu à la Négritude"'],
+              '"Hadriana dans tous mes rêves", roman mêlant vaudou, érotisme et histoire haïtienne',
+              'René Depestre (né en 1926 à Jacmel) quitte Haïti sous Duvalier et vit en France. "Hadriana dans tous mes rêves" (1988) est une oeuvre lyrique, sensuelle et fantastique, ancrée à Jacmel le jour du carnaval.',
+              'Difficile',
+            ),
+          _QSeed(
+              'La revue "La Revue Indigène" (1927) est associée à quel mouvement ?',
+              ['L\'Indigénisme haïtien, valorisant les traditions africaines et paysannes contre le colonialisme culturel', 'Le cosmopolitisme de La Ronde', 'Le romantisme patriotique de l\'École de 1836', 'Le Symbolisme haïtien'],
+              'L\'Indigénisme haïtien, valorisant les traditions africaines et paysannes contre le colonialisme culturel',
+              '"La Revue Indigène" (1927) est cofondée par Jacques Roumain, Carl Brouard, Philippe Thoby-Marcelin et Normil Sylvain. C\'est le manifeste du renouveau indigéniste en Haïti, influencé aussi par le mouvement de la Harlem Renaissance aux États-Unis.',
               'Moyen',
             ),
           ],
