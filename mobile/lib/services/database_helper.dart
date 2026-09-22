@@ -9663,7 +9663,7 @@ EPS:
         ),
     ]);
 
-    await ajouterMatiere('Secondaire', 'Histoire d\'Haïti', [
+    await ajouterMatiere('Secondaire', 'Histoire', [
       _ChapitreSeed(
           titre: 'Haïti précolombienne et colonisation (Taïnos et Saint-Domingue)',
           cartes: [
@@ -10405,9 +10405,6 @@ EPS:
             ),
           ],
         ),
-    ]);
-
-    await ajouterMatiere('Secondaire', 'Histoire Universelle', [
       _ChapitreSeed(
           titre: 'Antiquité : premières civilisations',
           cartes: [
@@ -11137,7 +11134,7 @@ EPS:
         ),
     ]);
 
-    await ajouterMatiere('Secondaire', 'Économie', [
+    await ajouterMatiere('Secondaire', 'Sciences économiques', [
       _ChapitreSeed(
           titre: 'Concepts fondamentaux de l\'économie',
           cartes: [
@@ -13921,7 +13918,7 @@ EPS:
     ]);
 
     EEA:
-    await ajouterMatiere('Secondaire', 'Éducation Esthétique et Artistique', [
+    await ajouterMatiere('Secondaire', 'Arts', [
       _ChapitreSeed(
         titre: 'Arts visuels et plastiques',
         cartes: [
@@ -14054,7 +14051,7 @@ EPS:
       ),
     ]);
 
-    await ajouterMatiere('Secondaire', 'Littérature Universelle', [
+    await ajouterMatiere('Secondaire', 'Littérature', [
       _ChapitreSeed(
           titre: 'Genres littéraires, mouvements et grandes oeuvres',
           cartes: [
@@ -14747,9 +14744,6 @@ EPS:
             ),
           ],
         ),
-    ]);
-
-    await ajouterMatiere('Secondaire', 'Littérature Haïtienne', [
       _ChapitreSeed(
           titre: 'Les Pionniers et l\'École de 1836 (1804–1860)',
           cartes: [
