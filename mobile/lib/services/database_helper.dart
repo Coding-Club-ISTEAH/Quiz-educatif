@@ -303,7 +303,7 @@ class DatabaseHelper {
   Future<List<Matiere>> getMatieresByCycle(String cycle) async {
     final db = await database;
     final rows = await db.rawQuery(
-      "SELECT * FROM matieres WHERE niveau = ? OR niveau = 'Commun' ORDER BY nom",
+      "SELECT * FROM matieres WHERE niveau = ? ORDER BY nom",
       [cycle],
     );
     return rows.map((r) => Matiere.fromMap(r)).toList();
@@ -810,7 +810,7 @@ class DatabaseHelper {
     // MATIÈRES COMMUNES (Fondamental + Secondaire)
     // ══════════════════════════════════════════
 
-    await ajouterMatiere('Commun', 'Communication Créole', [
+    await ajouterMatiere('Fondamentale', 'Communication Créole', [
       _ChapitreSeed(
           titre: 'Orthographe et phonologie du créole haïtien',
           cartes: [
@@ -1520,7 +1520,7 @@ class DatabaseHelper {
     ]);
 
 
-    await ajouterMatiere('Commun', 'Communication Française', [
+    await ajouterMatiere('Fondamentale', 'Communication Française', [
       _ChapitreSeed(
           titre: 'Grammaire et orthographe françaises',
           cartes: [
@@ -2223,7 +2223,7 @@ class DatabaseHelper {
     ]);
 
     CITOYENNETE:
-    await ajouterMatiere('Commun', 'Éducation à la Citoyenneté', [
+    await ajouterMatiere('Fondamentale', 'Éducation à la Citoyenneté', [
       _ChapitreSeed(
         titre: 'Droits et devoirs du citoyen',
         cartes: [
@@ -2971,7 +2971,7 @@ class DatabaseHelper {
     ]);
 
     EEA:
-    await ajouterMatiere('Commun', 'Éducation Esthétique et Artistique', [
+    await ajouterMatiere('Fondamentale', 'Éducation Esthétique et Artistique', [
       _ChapitreSeed(
         titre: 'Arts visuels et plastiques',
         cartes: [
@@ -3719,7 +3719,7 @@ class DatabaseHelper {
     ]);
 
 EPS:
-    await ajouterMatiere('Commun', 'Éducation Physique et Sportive', [
+    await ajouterMatiere('Fondamentale', 'Éducation Physique et Sportive', [
       _ChapitreSeed(
         titre: 'Sports collectifs',
         cartes: [
@@ -4466,7 +4466,7 @@ EPS:
       ),
     ]);
 
-    await ajouterMatiere('Commun', 'Mathématiques', [
+    await ajouterMatiere('Fondamentale', 'Mathématiques', [
       _ChapitreSeed(
           titre: 'Algèbre et équations',
           cartes: [
@@ -13328,7 +13328,7 @@ EPS:
         ),
     ]);
 
-    await ajouterMatiere('Commun', 'Éducation à la Citoyenneté', [
+    await ajouterMatiere('Secondaire', 'Éducation à la Citoyenneté', [
       _ChapitreSeed(
         titre: 'Constitution, droits et lois',
         cartes: [
@@ -13921,7 +13921,7 @@ EPS:
     ]);
 
     EEA:
-    await ajouterMatiere('Commun', 'Éducation Esthétique et Artistique', [
+    await ajouterMatiere('Secondaire', 'Éducation Esthétique et Artistique', [
       _ChapitreSeed(
         titre: 'Arts visuels et plastiques',
         cartes: [
@@ -14963,7 +14963,7 @@ EPS:
         ),
     ]);
 
-    await ajouterMatiere('Commun', 'Culture Générale', [
+    await ajouterMatiere('Secondaire', 'Culture Générale', [
       _ChapitreSeed(
           titre: 'Culture générale : monde, Haïti et actualités',
           cartes: [
