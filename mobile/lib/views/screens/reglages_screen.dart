@@ -77,9 +77,6 @@ class ReglagesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = context.watch<QuizController>();
-    final annees = controller.niveauScolaire == 'Secondaire'
-        ? ['NS1', 'NS2', 'NS3', 'NS4']
-        : ['7e AF', '8e AF', '9e AF'];
     final regions = _kRegions[controller.pays] ?? [];
 
     return Scaffold(
@@ -147,87 +144,6 @@ class ReglagesScreen extends StatelessWidget {
             ),
             const SizedBox(height: 28),
 
-            // ── Cycle d'études ───────────────────────────────────────────
-            _SectionTitre(titre: 'Cycle d\'études'),
-            const SizedBox(height: 12),
-            _CarteReglage(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'Sélectionne ton niveau pour n\'afficher que les matières correspondantes.',
-                    style: TextStyle(
-                      color: EduCleColors.textSecondary,
-                      fontSize: 13,
-                      height: 1.4,
-                    ),
-                  ),
-                  const SizedBox(height: 14),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: _BoutonCycle(
-                          label: 'Fondamentale',
-                          sousTitre: '7e à 9e AF',
-                          selectionne:
-                              controller.niveauScolaire == 'Fondamentale',
-                          onTap: () => context
-                              .read<QuizController>()
-                              .changerNiveauScolaire('Fondamentale'),
-                        ),
-                      ),
-                      const SizedBox(width: 10),
-                      Expanded(
-                        child: _BoutonCycle(
-                          label: 'Secondaire',
-                          sousTitre: 'NS1 à NS4',
-                          selectionne:
-                              controller.niveauScolaire == 'Secondaire',
-                          onTap: () => context
-                              .read<QuizController>()
-                              .changerNiveauScolaire('Secondaire'),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 28),
-
-            // ── Niveau / Année ───────────────────────────────────────────
-            const _SectionTitre(titre: 'Niveau / Année'),
-            const SizedBox(height: 12),
-            _CarteReglage(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'Sélectionne ton année scolaire pour un suivi plus précis.',
-                    style: TextStyle(
-                      color: EduCleColors.textSecondary,
-                      fontSize: 13,
-                      height: 1.4,
-                    ),
-                  ),
-                  const SizedBox(height: 14),
-                  Wrap(
-                    spacing: 8,
-                    runSpacing: 8,
-                    children: annees
-                        .map((annee) => _BoutonAnnee(
-                              label: annee,
-                              selectionne: controller.annee == annee,
-                              onTap: () => context
-                                  .read<QuizController>()
-                                  .changerAnnee(annee),
-                            ))
-                        .toList(),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 28),
 
             // ── Difficulté ───────────────────────────────────────────────
             const _SectionTitre(titre: 'Difficulté'),

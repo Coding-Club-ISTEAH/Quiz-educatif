@@ -110,22 +110,21 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 onPageChanged: (p) => setState(() => _pageCourante = p),
                 children: [
                   _pageBienvenue(),
-                  _pageNiveau(),
                   _pageZone(),
                 ],
               ),
             ),
             _BarreNavigation(
               pageCourante: _pageCourante,
-              nbPages: 3,
+              nbPages: 2,
               onSuivant: () {
-                if (_pageCourante < 2) {
+                if (_pageCourante < 1) {
                   _allerPage(_pageCourante + 1);
                 } else {
                   _terminer();
                 }
               },
-              onPasser: _pageCourante == 2 ? _terminer : null,
+              onPasser: _pageCourante == 1 ? _terminer : null,
             ),
           ],
         ),
