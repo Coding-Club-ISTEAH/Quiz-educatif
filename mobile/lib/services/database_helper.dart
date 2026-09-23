@@ -13921,7 +13921,7 @@ EPS:
     ]);
 
     EEA:
-    await ajouterMatiere('Secondaire', 'Arts', [
+    await ajouterMatiere('Secondaire', 'Arts et Musiques', [
       _ChapitreSeed(
         titre: 'Arts visuels et plastiques',
         cartes: [
