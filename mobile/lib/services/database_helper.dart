@@ -177,6 +177,7 @@ class DatabaseHelper {
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         matiere_id INTEGER NOT NULL,
         titre TEXT NOT NULL,
+        classe TEXT,
         FOREIGN KEY (matiere_id) REFERENCES matieres (id)
       )
     ''');
@@ -785,6 +786,7 @@ class DatabaseHelper {
         final chapitreId = await db.insert('chapitres', {
           'matiere_id': matiereId,
           'titre': chapitre.titre,
+          if (chapitre.classe != null) 'classe': chapitre.classe,
         });
         for (final carte in chapitre.cartes) {
           await db.insert('cartes_mentales', {
@@ -15907,11 +15909,13 @@ class _ChapitreSeed {
   final String titre;
   final List<String> cartes;
   final List<_QSeed> questions;
+  final String? classe;
 
   _ChapitreSeed({
     required this.titre,
     required this.cartes,
     required this.questions,
+    this.classe,
   });
 }
 
