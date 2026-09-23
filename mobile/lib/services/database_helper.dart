@@ -6729,6 +6729,158 @@ EPS:
         ),
     ]);
 
+    await ajouterMatiere('Fondamentale', 'Sciences Expérimentales', [
+      _ChapitreSeed(
+          titre: 'La matière et ses propriétés',
+          cartes: [
+          'La matière est tout ce qui occupe un espace et possède une masse. Elle existe sous trois états : solide, liquide et gazeux.',
+          'Un changement d\'état est une transformation physique : fusion (solide→liquide), vaporisation (liquide→gaz), solidification (liquide→solide).',
+          'La température mesure l\'agitation des particules. Elle s\'exprime en degrés Celsius (°C) ou en Kelvin (K).',
+          'La densité d\'un corps est le rapport entre sa masse et son volume. Un corps flotte si sa densité est inférieure à celle du liquide.',
+          'Les mélanges peuvent être homogènes (solution) ou hétérogènes. On les sépare par filtration, décantation ou distillation.',
+          ],
+          questions: [
+          _QSeed(
+              'Quels sont les trois états de la matière ?',
+              ['Solide, liquide et gazeux', 'Dur, mou et fluide', 'Chaud, tiède et froid', 'Dense, léger et neutre'],
+              'Solide, liquide et gazeux',
+              'La matière peut exister sous forme solide (forme fixe), liquide (forme variable, volume fixe) ou gazeuse (forme et volume variables).',
+              'Facile',
+            ),
+          _QSeed(
+              'Comment appelle-t-on le passage de l\'état solide à l\'état liquide ?',
+              ['La fusion', 'La vaporisation', 'La solidification', 'La condensation'],
+              'La fusion',
+              'La fusion est le changement d\'état solide → liquide, qui se produit lorsque la température dépasse le point de fusion du matériau.',
+              'Facile',
+            ),
+          _QSeed(
+              'Un cube de bois flotte sur l\'eau. Cela signifie que :',
+              ['Sa densité est inférieure à celle de l\'eau', 'Sa masse est nulle', 'Il est creux', 'Il est plus chaud que l\'eau'],
+              'Sa densité est inférieure à celle de l\'eau',
+              'Un objet flotte si sa densité (masse/volume) est inférieure à la densité du liquide dans lequel il est plongé.',
+              'Facile',
+            ),
+          _QSeed(
+              'Quelle technique permet de séparer les composants d\'un mélange hétérogène solide-liquide ?',
+              ['La filtration', 'La distillation', 'La dissolution', 'L\'évaporation'],
+              'La filtration',
+              'La filtration retient les particules solides sur un filtre et laisse passer le liquide, séparant ainsi les deux composants.',
+              'Facile',
+            ),
+          ],
+        ),
+      _ChapitreSeed(
+          titre: 'Le vivant : cellule et être vivant',
+          cartes: [
+          'La cellule est l\'unité de base du vivant. Les organismes peuvent être unicellulaires (une seule cellule) ou pluricellulaires.',
+          'Les êtres vivants partagent des caractéristiques communes : nutrition, respiration, reproduction, croissance et réponse aux stimuli.',
+          'La photosynthèse est le processus par lequel les plantes vertes fabriquent leur nourriture à partir de CO₂, d\'eau et de lumière solaire.',
+          'La chaîne alimentaire représente les relations de prédation : producteurs (plantes) → consommateurs primaires → consommateurs secondaires.',
+          'La biodiversité désigne la variété des espèces vivantes dans un écosystème. Elle est essentielle à l\'équilibre du milieu naturel.',
+          ],
+          questions: [
+          _QSeed(
+              'Qu\'est-ce que la photosynthèse ?',
+              ['Le processus par lequel les plantes fabriquent leur nourriture grâce à la lumière', 'La respiration des animaux', 'La décomposition de la matière organique', 'Le mouvement des plantes vers la lumière'],
+              'Le processus par lequel les plantes fabriquent leur nourriture grâce à la lumière',
+              'Les plantes utilisent la chlorophylle pour capter la lumière et transformer le CO₂ et l\'eau en glucose et dioxygène.',
+              'Facile',
+            ),
+          _QSeed(
+              'Comment appelle-t-on un organisme composé d\'une seule cellule ?',
+              ['Unicellulaire', 'Pluricellulaire', 'Monocorde', 'Primaire'],
+              'Unicellulaire',
+              'Un organisme unicellulaire (bactérie, amibe, paramécie) accomplit toutes les fonctions vitales avec une seule cellule.',
+              'Facile',
+            ),
+          _QSeed(
+              'Dans une chaîne alimentaire, les plantes sont appelées :',
+              ['Producteurs', 'Consommateurs primaires', 'Décomposeurs', 'Prédateurs'],
+              'Producteurs',
+              'Les plantes sont des producteurs car elles fabriquent leur propre matière organique par photosynthèse, à la base de la chaîne alimentaire.',
+              'Facile',
+            ),
+          ],
+        ),
+    ]);
+
+    await ajouterMatiere('Fondamentale', 'Physique', [
+      _ChapitreSeed(
+          titre: 'Mécanique : forces et mouvements',
+          cartes: [
+          'Une force est une action capable de modifier le mouvement ou la forme d\'un objet. Elle se mesure en Newton (N).',
+          'Le poids est la force d\'attraction exercée par la Terre sur un objet : P = m × g, où g ≈ 10 N/kg à la surface terrestre.',
+          'Un objet est en équilibre quand la somme des forces qui s\'appliquent sur lui est nulle.',
+          'La vitesse moyenne se calcule par v = d/t (distance divisée par le temps). Elle s\'exprime en m/s ou km/h.',
+          'L\'énergie cinétique est l\'énergie possédée par un objet en mouvement. Plus un objet est rapide et lourd, plus son énergie cinétique est grande.',
+          ],
+          questions: [
+          _QSeed(
+              'Quelle est l\'unité de mesure d\'une force ?',
+              ['Le Newton (N)', 'Le kilogramme (kg)', 'Le mètre (m)', 'Le joule (J)'],
+              'Le Newton (N)',
+              'La force est mesurée en Newton (N), en hommage au physicien Isaac Newton. 1 N est la force qui donne une accélération de 1 m/s² à une masse de 1 kg.',
+              'Facile',
+            ),
+          _QSeed(
+              'Quel est le poids d\'un objet de 5 kg sur Terre (g = 10 N/kg) ?',
+              ['50 N', '5 N', '500 N', '0,5 N'],
+              '50 N',
+              'P = m × g = 5 kg × 10 N/kg = 50 N. Le poids dépend de la masse et de l\'intensité du champ gravitationnel.',
+              'Facile',
+            ),
+          _QSeed(
+              'Un objet parcourt 120 m en 4 secondes. Quelle est sa vitesse moyenne ?',
+              ['30 m/s', '480 m/s', '30 km/h', '0,03 m/s'],
+              '30 m/s',
+              'v = d/t = 120 m ÷ 4 s = 30 m/s. La vitesse moyenne est la distance totale divisée par le temps total.',
+              'Facile',
+            ),
+          _QSeed(
+              'Qu\'est-ce que l\'énergie cinétique ?',
+              ['L\'énergie liée au mouvement d\'un objet', 'L\'énergie stockée dans un ressort', 'La chaleur dégagée par friction', 'L\'énergie chimique d\'une pile'],
+              'L\'énergie liée au mouvement d\'un objet',
+              'L\'énergie cinétique Ec = ½mv² dépend de la masse et de la vitesse. Un objet immobile a une énergie cinétique nulle.',
+              'Facile',
+            ),
+          ],
+        ),
+      _ChapitreSeed(
+          titre: 'Électricité et circuits',
+          cartes: [
+          'Un circuit électrique est un chemin fermé dans lequel circule un courant électrique, de la borne positive vers la borne négative.',
+          'Le courant électrique est le déplacement ordonné de charges électriques (électrons). Il se mesure en Ampères (A).',
+          'La tension (différence de potentiel) est la "pression" qui pousse le courant. Elle se mesure en Volts (V).',
+          'La résistance s\'oppose au passage du courant. Elle se mesure en Ohms (Ω). La loi d\'Ohm : U = R × I.',
+          'Les montages en série et en parallèle diffèrent : en série, le courant est le même partout ; en parallèle, la tension est la même pour chaque branche.',
+          ],
+          questions: [
+          _QSeed(
+              'Quelle est l\'unité de mesure du courant électrique ?',
+              ['L\'Ampère (A)', 'Le Volt (V)', 'L\'Ohm (Ω)', 'Le Watt (W)'],
+              'L\'Ampère (A)',
+              'L\'intensité du courant électrique se mesure en Ampères (A), à l\'aide d\'un ampèremètre placé en série dans le circuit.',
+              'Facile',
+            ),
+          _QSeed(
+              'Quelle loi relie la tension (U), la résistance (R) et l\'intensité (I) ?',
+              ['La loi d\'Ohm : U = R × I', 'La loi de Newton : F = ma', 'La loi de Joule : Q = Pt', 'La loi de Faraday'],
+              'La loi d\'Ohm : U = R × I',
+              'La loi d\'Ohm stipule que la tension aux bornes d\'une résistance est égale au produit de sa résistance par l\'intensité du courant.',
+              'Moyen',
+            ),
+          _QSeed(
+              'Dans un circuit en série, que se passe-t-il si une ampoule grille ?',
+              ['Toutes les ampoules s\'éteignent', 'Les autres ampoules brillent plus fort', 'Rien ne change', 'Le fusible saute'],
+              'Toutes les ampoules s\'éteignent',
+              'En série, le circuit est interrompu si un élément est en panne : le courant ne peut plus circuler, toutes les ampoules s\'éteignent.',
+              'Facile',
+            ),
+          ],
+        ),
+    ]);
+
     await ajouterMatiere('Secondaire', 'Physique', [
       _ChapitreSeed(
           titre: 'Mécanique : mouvements et forces',
